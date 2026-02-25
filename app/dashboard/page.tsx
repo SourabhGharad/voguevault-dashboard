@@ -15,11 +15,12 @@ interface DashboardPageProps {
 export default async function DashboardPage({
   searchParams,
 }: DashboardPageProps) {
+   const param = await searchParams;
+  
+   const items: InventoryItem[] = await getInventory();
 
-  const items: InventoryItem[] = await getInventory();
-
-  const search = searchParams.search?.toLowerCase() ?? "";
-  const status = searchParams.status ?? undefined;
+  const search = param.search?.toLowerCase() ?? "";
+  const status = param.status ?? undefined;
 
   const filteredItems = items.filter((item) => {
     const matchesSearch = item.name
@@ -33,8 +34,8 @@ export default async function DashboardPage({
     return matchesSearch && matchesStatus;
   });
 
-  const sortBy = searchParams.sort;
-  const order = searchParams.order ?? "asc";
+  const sortBy = param.sort;
+  const order = param.order ?? "asc";
 
   const sortedItems = [...filteredItems].sort((a, b) => {
     if (!sortBy) return 0;
