@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { InventoryItem } from "@/app/api/inventory/route";
+import { InventoryItem } from "@/lib/inventory";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/format";
 
