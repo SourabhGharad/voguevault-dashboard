@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import { InventoryItem } from "@/app/api/inventory/route";
+import { InventoryItem } from "@/lib/inventory";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
