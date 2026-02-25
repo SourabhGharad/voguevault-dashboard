@@ -1,112 +1,232 @@
-// src/lib/inventory.ts
-export type SortBy = "price" | "stock" | undefined;
-export type Order = "asc" | "desc";
-
+// lib/inventory.ts
 export interface InventoryItem {
   id: string;
   name: string;
+  category: string;
   price: number;
   stock: number;
-  status: "In Stock" | "Low Stock" | "Out of Stock" | string;
-  // add other fields as needed
+  status: "In Stock" | "Low Stock" | "Out of Stock";
+  lastUpdated: string;
 }
 
-export type InventoryFilters = {
-  /** user-entered search string (trimmed & lowercase will be used) */
-  search?: string | null;
-  /** exact status string, e.g. "In Stock" */
-  status?: string | null;
+export type InventoryQuery = {
+  search?: string;
+  status?: string;
+  sort?: "price" | "stock";
+  order?: "asc" | "desc";
 };
 
-/**
- * Normalizes a search string: trim + lowercase; returns undefined for empty strings.
- */
-export function normalizeSearch(s?: string | null): string | undefined {
-  if (!s) return undefined;
-  const t = s.trim();
-  return t === "" ? undefined : t.toLowerCase();
-}
+const inventory: InventoryItem[] = [
+  {
+    id: "1",
+    name: "Cashmere Turtleneck",
+    category: "Apparel",
+    price: 12999,
+    stock: 12,
+    status: "In Stock",
+    lastUpdated: "2026-02-10T10:00:00Z",
+  },
+  {
+    id: "2",
+    name: "Linen Summer Shirt",
+    category: "Apparel",
+    price: 3499,
+    stock: 30,
+    status: "In Stock",
+    lastUpdated: "2026-02-12T08:30:00Z",
+  },
+  {
+    id: "3",
+    name: "Slim Fit Denim Jeans",
+    category: "Apparel",
+    price: 4999,
+    stock: 18,
+    status: "In Stock",
+    lastUpdated: "2026-02-11T14:20:00Z",
+  },
+  {
+    id: "4",
+    name: "Leather Biker Jacket",
+    category: "Outerwear",
+    price: 18999,
+    stock: 5,
+    status: "Low Stock",
+    lastUpdated: "2026-02-09T16:45:00Z",
+  },
+  {
+    id: "5",
+    name: "Wool Blend Overcoat",
+    category: "Outerwear",
+    price: 15999,
+    stock: 7,
+    status: "Low Stock",
+    lastUpdated: "2026-02-08T11:10:00Z",
+  },
+  {
+    id: "6",
+    name: "Crew Neck Cotton T-Shirt",
+    category: "Apparel",
+    price: 1499,
+    stock: 50,
+    status: "In Stock",
+    lastUpdated: "2026-02-14T09:00:00Z",
+  },
+  {
+    id: "7",
+    name: "Pleated Midi Skirt",
+    category: "Apparel",
+    price: 4299,
+    stock: 20,
+    status: "In Stock",
+    lastUpdated: "2026-02-13T13:25:00Z",
+  },
+  {
+    id: "8",
+    name: "Silk Button-Down Blouse",
+    category: "Apparel",
+    price: 6999,
+    stock: 10,
+    status: "In Stock",
+    lastUpdated: "2026-02-07T10:40:00Z",
+  },
+  {
+    id: "9",
+    name: "High-Waist Trousers",
+    category: "Apparel",
+    price: 5599,
+    stock: 14,
+    status: "In Stock",
+    lastUpdated: "2026-02-06T15:30:00Z",
+  },
+  {
+    id: "10",
+    name: "Knitted Cardigan",
+    category: "Knitwear",
+    price: 4799,
+    stock: 9,
+    status: "Low Stock",
+    lastUpdated: "2026-02-05T12:00:00Z",
+  },
+  {
+    id: "11",
+    name: "Cashmere Scarf",
+    category: "Accessories",
+    price: 3999,
+    stock: 25,
+    status: "In Stock",
+    lastUpdated: "2026-02-10T17:15:00Z",
+  },
+  {
+    id: "12",
+    name: "Tailored Blazer",
+    category: "Formal Wear",
+    price: 10999,
+    stock: 6,
+    status: "Low Stock",
+    lastUpdated: "2026-02-04T09:50:00Z",
+  },
+  {
+    id: "13",
+    name: "Relaxed Fit Hoodie",
+    category: "Apparel",
+    price: 3899,
+    stock: 35,
+    status: "In Stock",
+    lastUpdated: "2026-02-15T07:30:00Z",
+  },
+  {
+    id: "14",
+    name: "Athleisure Joggers",
+    category: "Activewear",
+    price: 2999,
+    stock: 0,
+    status: "Out of Stock",
+    lastUpdated: "2026-02-14T18:10:00Z",
+  },
+  {
+    id: "15",
+    name: "Formal White Shirt",
+    category: "Formal Wear",
+    price: 3299,
+    stock: 22,
+    status: "In Stock",
+    lastUpdated: "2026-02-13T08:45:00Z",
+  },
+  {
+    id: "16",
+    name: "Woolen Beanie",
+    category: "Accessories",
+    price: 999,
+    stock: 0,
+    status: "Out of Stock",
+    lastUpdated: "2026-02-12T19:00:00Z",
+  },
+  {
+    id: "17",
+    name: "Ankle Length Boots",
+    category: "Footwear",
+    price: 8499,
+    stock: 11,
+    status: "In Stock",
+    lastUpdated: "2026-02-09T10:20:00Z",
+  },
+  {
+    id: "18",
+    name: "Canvas Sneakers",
+    category: "Footwear",
+    price: 4599,
+    stock: 27,
+    status: "In Stock",
+    lastUpdated: "2026-02-11T16:00:00Z",
+  },
+  {
+    id: "19",
+    name: "Printed Summer Dress",
+    category: "Apparel",
+    price: 5299,
+    stock: 13,
+    status: "In Stock",
+    lastUpdated: "2026-02-08T14:35:00Z",
+  },
+  {
+    id: "20",
+    name: "Denim Trucker Jacket",
+    category: "Outerwear",
+    price: 7499,
+    stock: 8,
+    status: "Low Stock",
+    lastUpdated: "2026-02-06T11:55:00Z",
+  }
+  
+];
 
-/**
- * Normalizes status: trim; returns undefined for empty.
- */
-export function normalizeStatus(s?: string | null): string | undefined {
-  if (!s) return undefined;
-  const t = s.trim();
-  return t === "" ? undefined : t;
-}
+export async function getInventory(
+  query: InventoryQuery = {}
+): Promise<InventoryItem[]> {
+  let items = [...inventory];
 
-/**
- * Pure filter function implementing the four cases you asked for:
- * - no search & no status => all items
- * - search only => items matching search (name includes)
- * - status only => items matching status
- * - both => items matching both
- */
-export function filterItems(
-  items: InventoryItem[],
-  filters: InventoryFilters
-): InventoryItem[] {
-  const search = normalizeSearch(filters.search);
-  const status = normalizeStatus(filters.status);
+  if (query.search) {
+    const term = query.search.toLowerCase();
+    items = items.filter((i) =>
+      i.name.toLowerCase().includes(term)
+    );
+  }
 
-  // If neither filter, return original array (shallow copy to avoid accidental mutation)
-  if (!search && !status) return [...items];
+  if (query.status) {
+    items = items.filter((i) => i.status === query.status);
+  }
 
-  return items.filter((item) => {
-    // search match (if provided)
-    if (search) {
-      if (!item.name.toLowerCase().includes(search)) return false;
-    }
+  if (query.sort) {
+    const order = query.order ?? "asc";
+    items.sort((a, b) => {
+      const aVal = a[query.sort!];
+      const bVal = b[query.sort!];
 
-    // status match (if provided)
-    if (status) {
-      if (item.status !== status) return false;
-    }
+      if (aVal < bVal) return order === "asc" ? -1 : 1;
+      if (aVal > bVal) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+  }
 
-    return true;
-  });
-}
-
-/**
- * Sort items by a numeric key (price or stock).
- * If sortBy is undefined, returns a shallow copy of items (unchanged order).
- */
-export function sortItems(
-  items: InventoryItem[],
-  sortBy: SortBy,
-  order: Order = "asc"
-): InventoryItem[] {
-  if (!sortBy) return [...items];
-
-  const copy = [...items];
-  copy.sort((a, b) => {
-    const aVal = (a as any)[sortBy] as number | undefined;
-    const bVal = (b as any)[sortBy] as number | undefined;
-
-    // Handle undefined gracefully
-    if (aVal === undefined && bVal === undefined) return 0;
-    if (aVal === undefined) return order === "asc" ? 1 : -1;
-    if (bVal === undefined) return order === "asc" ? -1 : 1;
-
-    if (aVal < bVal) return order === "asc" ? -1 : 1;
-    if (aVal > bVal) return order === "asc" ? 1 : -1;
-    return 0;
-  });
-
-  return copy;
-}
-
-/**
- * Convenience: apply filter first, then sort.
- */
-export function applyFiltersAndSort(
-  items: InventoryItem[],
-  filters: InventoryFilters,
-  sortBy?: SortBy,
-  order: Order = "asc"
-): InventoryItem[] {
-  const filtered = filterItems(items, filters);
-  const sorted = sortItems(filtered, sortBy, order);
-  return sorted;
+  return items;
 }
