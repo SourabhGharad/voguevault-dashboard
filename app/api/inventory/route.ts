@@ -1,0 +1,197 @@
+export interface InventoryItem {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  status: "In Stock" | "Low Stock" | "Out of Stock";
+  lastUpdated: string; // ISO Date
+}
+
+const inventory: InventoryItem[] = [
+  {
+    id: "1",
+    name: "Cashmere Turtleneck",
+    category: "Apparel",
+    price: 12999,
+    stock: 12,
+    status: "In Stock",
+    lastUpdated: "2026-02-10T10:00:00Z",
+  },
+  {
+    id: "2",
+    name: "Linen Summer Shirt",
+    category: "Apparel",
+    price: 3499,
+    stock: 30,
+    status: "In Stock",
+    lastUpdated: "2026-02-12T08:30:00Z",
+  },
+  {
+    id: "3",
+    name: "Slim Fit Denim Jeans",
+    category: "Apparel",
+    price: 4999,
+    stock: 18,
+    status: "In Stock",
+    lastUpdated: "2026-02-11T14:20:00Z",
+  },
+  {
+    id: "4",
+    name: "Leather Biker Jacket",
+    category: "Outerwear",
+    price: 18999,
+    stock: 5,
+    status: "Low Stock",
+    lastUpdated: "2026-02-09T16:45:00Z",
+  },
+  {
+    id: "5",
+    name: "Wool Blend Overcoat",
+    category: "Outerwear",
+    price: 15999,
+    stock: 7,
+    status: "Low Stock",
+    lastUpdated: "2026-02-08T11:10:00Z",
+  },
+  {
+    id: "6",
+    name: "Crew Neck Cotton T-Shirt",
+    category: "Apparel",
+    price: 1499,
+    stock: 50,
+    status: "In Stock",
+    lastUpdated: "2026-02-14T09:00:00Z",
+  },
+  {
+    id: "7",
+    name: "Pleated Midi Skirt",
+    category: "Apparel",
+    price: 4299,
+    stock: 20,
+    status: "In Stock",
+    lastUpdated: "2026-02-13T13:25:00Z",
+  },
+  {
+    id: "8",
+    name: "Silk Button-Down Blouse",
+    category: "Apparel",
+    price: 6999,
+    stock: 10,
+    status: "In Stock",
+    lastUpdated: "2026-02-07T10:40:00Z",
+  },
+  {
+    id: "9",
+    name: "High-Waist Trousers",
+    category: "Apparel",
+    price: 5599,
+    stock: 14,
+    status: "In Stock",
+    lastUpdated: "2026-02-06T15:30:00Z",
+  },
+  {
+    id: "10",
+    name: "Knitted Cardigan",
+    category: "Knitwear",
+    price: 4799,
+    stock: 9,
+    status: "Low Stock",
+    lastUpdated: "2026-02-05T12:00:00Z",
+  },
+  {
+    id: "11",
+    name: "Cashmere Scarf",
+    category: "Accessories",
+    price: 3999,
+    stock: 25,
+    status: "In Stock",
+    lastUpdated: "2026-02-10T17:15:00Z",
+  },
+  {
+    id: "12",
+    name: "Tailored Blazer",
+    category: "Formal Wear",
+    price: 10999,
+    stock: 6,
+    status: "Low Stock",
+    lastUpdated: "2026-02-04T09:50:00Z",
+  },
+  {
+    id: "13",
+    name: "Relaxed Fit Hoodie",
+    category: "Apparel",
+    price: 3899,
+    stock: 35,
+    status: "In Stock",
+    lastUpdated: "2026-02-15T07:30:00Z",
+  },
+  {
+    id: "14",
+    name: "Athleisure Joggers",
+    category: "Activewear",
+    price: 2999,
+    stock: 0,
+    status: "Out of Stock",
+    lastUpdated: "2026-02-14T18:10:00Z",
+  },
+  {
+    id: "15",
+    name: "Formal White Shirt",
+    category: "Formal Wear",
+    price: 3299,
+    stock: 22,
+    status: "In Stock",
+    lastUpdated: "2026-02-13T08:45:00Z",
+  },
+  {
+    id: "16",
+    name: "Woolen Beanie",
+    category: "Accessories",
+    price: 999,
+    stock: 0,
+    status: "Out of Stock",
+    lastUpdated: "2026-02-12T19:00:00Z",
+  },
+  {
+    id: "17",
+    name: "Ankle Length Boots",
+    category: "Footwear",
+    price: 8499,
+    stock: 11,
+    status: "In Stock",
+    lastUpdated: "2026-02-09T10:20:00Z",
+  },
+  {
+    id: "18",
+    name: "Canvas Sneakers",
+    category: "Footwear",
+    price: 4599,
+    stock: 27,
+    status: "In Stock",
+    lastUpdated: "2026-02-11T16:00:00Z",
+  },
+  {
+    id: "19",
+    name: "Printed Summer Dress",
+    category: "Apparel",
+    price: 5299,
+    stock: 13,
+    status: "In Stock",
+    lastUpdated: "2026-02-08T14:35:00Z",
+  },
+  {
+    id: "20",
+    name: "Denim Trucker Jacket",
+    category: "Outerwear",
+    price: 7499,
+    stock: 8,
+    status: "Low Stock",
+    lastUpdated: "2026-02-06T11:55:00Z",
+  }
+    
+];
+
+export async function GET() {
+  return Response.json(inventory);
+}
